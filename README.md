@@ -26,6 +26,20 @@ For instance, after unpacking AESE Edition of DB2, the directory structure shoul
     * ibm_im  
     * installFixPack  nlpack
     
+For DB2 Express-C edition
+
+* docker-db2
+  * main.sh
+  * Dockerfile
+  * expc
+    * db2  
+    * db2ckupgrade  
+    * db2_deinstall  
+    * db2_install  
+    * db2ls  
+    * db2prereqcheck  
+    * db2setup  
+
 # Build the Docker image
 
 ## Customization
@@ -46,7 +60,14 @@ Important: Even if the default password is changed, it can be easily extracted b
 ## Build the image
 You can change the image name (here *db2*) to any other name.
 
+DB2 Express-C
+
+> docker build --build-arg INSTDIR=expc  -t db2  .<br>
+
+DB2 AESE
+
 > docker build --build-arg INSTDIR=server_aese_c  -t db2  .<br>
+
 
 The building process takes several minutes.  An intermediate image is created to get rid of DB2 installation files which are redundant after installation and to avoid pumping up the image size. So the *yum update* and *yum install* commands are execute twice, once inside the intermediate image and the second time inside the final image.
 
