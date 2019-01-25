@@ -50,7 +50,7 @@ You can change the image name (here *db2*) to any other name.
 
 The building process takes several minutes. Intermediate image is created to get rid of DB2 installation files which are redundant after installation and to avoid pumping up the image size. So the *yum update* and *yum install* commands are execute twicely, once inside the intermediate image and the second time inside the final image.
 
-During DB2 installation the following error message can be reported, just igore it.
+During DB2 installation the following error message can be reported, just ignore it.
 ```
 The execution completed successfully.
 
