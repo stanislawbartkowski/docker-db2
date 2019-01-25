@@ -56,6 +56,7 @@ The Docker image can be customized by several build variables.
 | DB2PORT | 50000 | DB2 TCP/IP connection port
 | DB2PASSWORD | db2inst1 | DB2 instance owner password
 | PARS | Mandatory, no default | Additional parameter passed to DB2 installer. For AESE the value should be **-b\ SERVER**, for DB2 Express-C **-y**
+| FIXDIR | not defined | root directory for DB2 FixPack, look below. If not defined, only main installation is conducted.
 
 Important: Even if the default password is changed, it can be easily extracted by running *docker history* whatsoever. In order to keep the password confidential, change it later in the container manually.
 
@@ -84,7 +85,45 @@ Removing intermediate container 8c458c798a36
 
 ```
 After the image is completed, remove the intermediate image.
+
 > docker image prune
+
+## Apply IBM DB2 FixPack
+
+Together with DB2 installation, the FixPack can applied at the same time. This option is available only for licensed version of DB2, DB2 Express-C cannot be upgraded that way.
+
+Firstly unpack compressed file containing FixPack payload into DB2 installation directory. After unpacking the FixPack, the installation directory should look:
+* docker-db2
+  * main.sh
+  * Dockerfile
+  * server_aese_c
+    * db2  
+    * db2checkCOL_readme.txt  
+    * db2checkCOL.tar.gz  
+    * db2ckupgrade  
+    * db2_deinstall  
+    * db2_install  
+    * db2ls  
+    * db2prereqcheck  
+    * db2setup  
+    * ibm_im  
+    * installFixPack  nlpack
+    * server_t
+      * db2  
+      * db2checkCOL_readme.txt  
+      * db2checkCOL.tar.gz  
+      * db2ckupgrade  db2_deinstall  
+      * db2_install  db2ls  
+      * db2prereqcheck  
+      * db2setup  
+      * ibm_im  
+      * installFixPack
+
+Then run docker build image command and define additional *FIXDIR* argument equal to root directory of FixPack files inside main install directory (here *server_t*)
+
+> docker build --build-arg INSTDIR=server_aese_c --build-arg PARS="-p SERVER" --build-arg FIXDIR=server_t -t db2 .
+
+After main installation, the build process executes ${FIXDIR}/installFixCommand with appropriate parameters.
 
 # Start the container
 
