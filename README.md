@@ -45,6 +45,7 @@ For DB2 Express-C edition
 ## Customization
 
 *INSTDIR* argument is necessary for building process. It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.
+Also parameter *PARS* is mandatory. It is the additional parameter for IBM DB2 installer specific to the particular DB2 version. Incorrect value will cause installation failure difficult to pin down.
 The Docker image can be customized by several build variables.
 
 | Variable name     | Default           | Description
@@ -54,6 +55,7 @@ The Docker image can be customized by several build variables.
 | DB2USER | db2inst1 | DB2 instance owner
 | DB2PORT | 50000 | DB2 TCP/IP connection port
 | DB2PASSWORD | db2inst1 | DB2 instance owner password
+| PARS | Mandatory, no default | Additional parameter passed to DB2 installer. For AESE the value should be **-b\ SERVER**, for DB2 Express-C **-y**
 
 Important: Even if the default password is changed, it can be easily extracted by running *docker history* whatsoever. In order to keep the password confidential, change it later in the container manually.
 
@@ -66,7 +68,7 @@ DB2 Express-C
 
 DB2 AESE
 
-> docker build --build-arg INSTDIR=server_aese_c  -t db2  .<br>
+> docker build --build-arg INSTDIR=server_aese_c --build-arg PARS=-p\ SERVER -t db2 .<br>
 
 
 The building process takes several minutes.  An intermediate image is created to get rid of DB2 installation files which are redundant after installation and to avoid pumping up the image size. So the *yum update* and *yum install* commands are execute twice, once inside the intermediate image and the second time inside the final image.
