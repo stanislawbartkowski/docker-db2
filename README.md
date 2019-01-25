@@ -28,6 +28,8 @@ For instance, after unpacking AESE Edition of DB2, the directory structure shoul
     
 * Build the image
 
+** Customization
+
 *INSTDIR* argument is necessary for building process . It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.
 The Docker image can be customized by several build variables.
 
@@ -41,5 +43,10 @@ The Docker image can be customized by several build variables.
 
 Important: Even if the default password is changed, it can be easily extracted by running *docker history* whatsoever. In order to keep the password confidential, change it later in the container manually.
 
-> docker build --build-arg INSTDIR=server_aese_c  -t db2  .
+* Build the image
+You can change the image name (here *db2*) to any other name.
+
+> docker build --build-arg INSTDIR=server_aese_c  -t db2  .<br>
+
+The building process takes several minutes. Intermediate image is created to get rid of DB2 installation files which are redundant after installation and to avoid pumping up the image size. So the *yum update* and *yum install* commands are execute twicely, once inside the intermediate image and the second time inside the final image.
 
