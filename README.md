@@ -41,4 +41,5 @@ The Docker image can be customized by several build variables.
 
 Important: Even if the default password is changed, it can be easily extracted by running *docker history* whatsoever. In order to keep the password confidential, change it later in the container manually.
 
+> docker build --build-arg INSTDIR=server_aese_c  -t db2  .
 
