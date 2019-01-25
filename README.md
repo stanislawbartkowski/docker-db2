@@ -123,3 +123,10 @@ Enter current password for db2inst1:
  Local database alias   = DB2DB
 
 ```
+# Several useful commands
+Stop the container
+> docker stop db2
+Start the container
+> docker start db
+Get access to the container. The instance owner password can be changed this way.
+> docker exec -it db2 /bin/bash
