@@ -44,8 +44,8 @@ For DB2 Express-C edition
 
 ## Customization
 
-*INSTDIR* argument is necessary for building process. It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.
-Also parameter *PARS* is mandatory. It is the additional parameter for IBM DB2 installer specific to the particular DB2 version. Incorrect value will cause installation failure difficult to pin down.
+*INSTDIR* argument is necessary for building process. It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.<br>
+Also argument *PARS* is mandatory. It is an additional parameter for IBM DB2 installer specific to the particular DB2 version. Incorrect value will cause installation failure difficult to pin down.
 The Docker image can be customized by several build variables.
 
 | Variable name     | Default           | Description
