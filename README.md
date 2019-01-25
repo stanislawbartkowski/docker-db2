@@ -1,8 +1,8 @@
 # docker-db2
 
-This project allows to Dockerize IBM DB2 database. The image will contains DB2 installation and a single instance ready to accept connections.
+This project allows to Dockerize IBM DB2 database. The image will contain DB2 installation and a single instance ready to accept connections.
 
-# Preparation and prerequisities
+# Preparation and prerequisites
 
 ## Clone git project
 > git clone https://github.com/stanislawbartkowski/docker-db2.git<br>
@@ -30,7 +30,7 @@ For instance, after unpacking AESE Edition of DB2, the directory structure shoul
 
 ## Customization
 
-*INSTDIR* argument is necessary for building process . It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.
+*INSTDIR* argument is necessary for building process. It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.
 The Docker image can be customized by several build variables.
 
 | Variable name     | Default           | Description
@@ -48,7 +48,7 @@ You can change the image name (here *db2*) to any other name.
 
 > docker build --build-arg INSTDIR=server_aese_c  -t db2  .<br>
 
-The building process takes several minutes. Intermediate image is created to get rid of DB2 installation files which are redundant after installation and to avoid pumping up the image size. So the *yum update* and *yum install* commands are execute twicely, once inside the intermediate image and the second time inside the final image.
+The building process takes several minutes.  An intermediate image is created to get rid of DB2 installation files which are redundant after installation and to avoid pumping up the image size. So the *yum update* and *yum install* commands are execute twice, once inside the intermediate image and the second time inside the final image.
 
 During DB2 installation the following error message can be reported, just ignore it.
 ```
@@ -60,7 +60,7 @@ The command execution aborted due to user interrupt.
 Removing intermediate container 8c458c798a36
 
 ```
-After image is completed, remove the intermediate image.
+After the image is completed, remove the intermediate image.
 > docker image prune
 
 # Start the container
@@ -70,7 +70,7 @@ The container should run as *--privileged*. The name of the container (here *db2
 
  > docker run --privileged -d -p 50000:50000 --name db2 db2
 
-The very first thing to do is to create a database, the image contains empty DB2 instance. The container DB2 instance can be accessed remotely, using DB2 client software.
+The very first thing to do is to create a database, the image contains an empty DB2 instance. The container DB2 instance can be accessed remotely, using DB2 client software.
 ## Remote access to DB2 instance
 > db2 catalog tcpip node DB2CONT remote localhost server 50000<br>
 ```
@@ -78,7 +78,7 @@ DB20000I  The CATALOG TCPIP NODE command completed successfully.
 DB21056W  Directory changes may not be effective until the directory cache is 
 refreshed.
 ```
-## Create database
+## Create a database
 >  db2 attach to  DB2CONT user db2inst1
 ```
 Enter current password for db2inst1: 
@@ -91,5 +91,35 @@ Enter current password for db2inst1:
 
 ```
 > db2 create database DB2DB<br>
-Database creation can take several minute, it is as expected.
 
+Database creation will take several minutes, it is as expected.
+```
+DB20000I  The CREATE DATABASE command completed successfully.
+
+```
+> db2 list db directory
+```
+.......
+ Database alias                       = DB2DB
+ Database name                        = DB2DB
+ Node name                            = DB2CONT
+ Database release level               = 14.00
+ Comment                              =
+ Directory entry type                 = Remote
+ Catalog database partition number    = -1
+ Alternate server hostname            =
+ Alternate server port number         =
+........
+```
+## Connect to database
+> db2 connect to DB2DB user db2inst1
+```
+Enter current password for db2inst1: 
+
+   Database Connection Information
+
+ Database server        = DB2/LINUXX8664 11.1.0
+ SQL authorization ID   = DB2INST1
+ Local database alias   = DB2DB
+
+```
