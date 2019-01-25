@@ -123,7 +123,7 @@ Then run docker build image command and define additional *FIXDIR* argument equa
 
 > docker build --build-arg INSTDIR=server_aese_c --build-arg PARS="-p SERVER" --build-arg FIXDIR=server_t -t db2 .
 
-After main installation, the build process executes ${FIXDIR}/installFixCommand with appropriate parameters.
+After main installation, the build process executes ${FIXDIR}/installFixPack command with appropriate parameters.
 
 # Start the container
 
