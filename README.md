@@ -64,7 +64,7 @@ You can change the image name (here *db2*) to any other name.
 
 DB2 Express-C
 
-> docker build --build-arg INSTDIR=expc  -t db2  .<br>
+>  docker build --build-arg INSTDIR=expc --build-arg PARS=-y -t db2 .<br>
 
 DB2 AESE
 
