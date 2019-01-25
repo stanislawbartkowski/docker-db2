@@ -10,8 +10,6 @@ ARG PARS
 #ARG PARS=-y
 ARG INSTPATH=/opt/ibm/db2/V11.1
 
-RUN echo ${PROD}
-
 # update system and install DB2 dependencies
  RUN yum -y update ; yum -y install file libaio numactl libstdc++.so.6 pam-devel ksh pam-devel.i686 'compat-libstdc++-33-3.2.3-72.*'
 
@@ -19,7 +17,7 @@ RUN echo ${PROD}
  ADD ${INSTDIR} /tmp/i
 # install
  RUN /tmp/i/db2_install ${PARS} -b ${INSTPATH} -f NOTSAMP 
- RUN rm -rf 
+ RUN rm -rf /tmp/i
 
 FROM centos 
 # from intermediate image copy installation and db2 registry leaving out the installation image
