@@ -1,6 +1,6 @@
 # docker-db2
 
-This project allows to Dockerize IBM DB2 database. The image will contain DB2 installation and a single instance ready to accept connections.
+This project allows to Dockerize IBM DB2 database. The image will contain DB2 installation and a single instance ready to accept connections. Database(s) should be added manually.
 
 # Preparation and prerequisites
 
