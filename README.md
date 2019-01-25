@@ -63,3 +63,31 @@ Removing intermediate container 8c458c798a36
 After image is completed, remove the intermediate image.
 > docker image prune
 
+# Start the container
+
+## Initialize
+The container should run as *--privileged*. The name of the container (here *db2*) could be any other.
+
+ > docker run --privileged -d -p 50000:50000 --name db2 db2
+
+First thing to do is to create a database, the image contains empty DB2 instance. The container DB2 instance can be accessed remotely, using DB2 client software.
+## Remote access to DB2 instance
+> db2 catalog tcpip node DB2CONT remote localhost server 50000<br>
+```
+DB20000I  The CATALOG TCPIP NODE command completed successfully.
+DB21056W  Directory changes may not be effective until the directory cache is 
+refreshed.
+```
+## Create database
+>  db2 attach to  DB2CONT user db2inst1
+```
+Enter current password for db2inst1: 
+
+   Instance Attachment Information
+
+ Instance server        = DB2/LINUXX8664 11.1.0
+ Authorization ID       = DB2INST1
+ Local instance alias   = DB2CONT
+
+```
+
