@@ -4,6 +4,8 @@ MAINTAINER "sb" <stanislawbartkowski@gmail.com>
 
 ARG INSTDIR
 ARG PARS
+ARG FIXDIR
+
 # parameters doe AESE
 #ARG PARS=-p\ SERVER
 # parameters for Express-C
@@ -17,6 +19,8 @@ ARG INSTPATH=/opt/ibm/db2/V11.1
  ADD ${INSTDIR} /tmp/i
 # install
  RUN /tmp/i/db2_install ${PARS} -b ${INSTPATH} -f NOTSAMP 
+# install fixpack, true added to suppress exit error code
+ RUN if [ "${FIXDIR}" != "" ] ; then /tmp/i/${FIXDIR}/installFixPack -b ${INSTPATH} -n; true; fi
  RUN rm -rf /tmp/i
 
 FROM centos 
