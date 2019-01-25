@@ -29,6 +29,16 @@ For instance, after unpacking AESE Edition of DB2, the directory structure shoul
 * Build the image
 
 *INSTDIR* argument is necessary for building process . It is the root directory for DB2 installation files. In the above example, the INSTDIR should be **server_aese_c**.
+The Docker image can be customized by several build variables.
 
+| Variable name     | Default           | Description
+| ------------- | -------------| ----- |
+| INSTDIR | Mandatory, no default | The root path of unpacked DB2 installation files
+| INSTPATH | /opt/ibm/db2/V11.1 | Installation path for DB2, the path inside container file syste,
+| DB2USER | db2inst1 | DB2 instance owner
+| DB2PORT | 50000 | DB2 TCP/IP connection port
+| DB2PASSWORD | db2inst1 | DB2 instance owner password
+
+Important: Even if the default password is changed, it can be easily extracted by running *docker history* whatsoever. In order to keep the password confidential, change it later in the container manually.
 
 
