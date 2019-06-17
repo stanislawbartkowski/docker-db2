@@ -125,6 +125,12 @@ Then run docker build image command and define additional *FIXDIR* argument equa
 
 After main installation, the build process executes ${FIXDIR}/installFixPack command with appropriate parameters.
 
+# PowerPC
+
+Db2 on PowerPC platform requires additional dependency. It is resolved by command:<br>
+> ADD ibm-xl-compiler-eval.repo /etc/yum.repos.d/ibm-xl-compiler-eval.repo<br>
+> RUN if [ "$HOSTTYPE" == "powerpc64le" ]; then yum -y install 'libxlc*'; fi<br>
+
 # Start the container
 
 ## Initialize
