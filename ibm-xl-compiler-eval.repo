@@ -1,0 +1,6 @@
+[ibm-xl-compiler-eval]
+name=ibm-xl-compiler-eval
+baseurl=http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/rhel7/
+enabled=1
+gpgcheck=1
+gpgkey=http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/rhel7/repodata/repomd.xml.key

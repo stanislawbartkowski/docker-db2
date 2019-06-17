@@ -15,6 +15,9 @@ ARG INSTPATH=/opt/ibm/db2/V11.1
 # update system and install DB2 dependencies
  RUN yum -y update ; yum -y install file libaio numactl libstdc++.so.6 pam-devel ksh pam-devel.i686 'compat-libstdc++-33-3.2.3-72.*'
 
+ ADD ibm-xl-compiler-eval.repo /etc/yum.repos.d/ibm-xl-compiler-eval.repo
+ RUN if [ "$HOSTTYPE" == "powerpc64le" ]; then yum -y install 'libxlc*'; fi
+
 # copy installation image
  ADD ${INSTDIR} /tmp/i
 # install
@@ -39,6 +42,9 @@ FROM centos
 
 # update system and install DB2 dependencies again
   RUN yum -y update ; yum -y install file libaio numactl libstdc++.so.6 pam-devel ksh pam-devel.i686 'compat-libstdc++-33-3.2.3-72.*'
+
+ ADD ibm-xl-compiler-eval.repo /etc/yum.repos.d/ibm-xl-compiler-eval.repo
+ RUN if [ "$HOSTTYPE" == "powerpc64le" ]; then yum -y install 'libxlc*'; fi
 
 # users and password
   RUN useradd ${DB2USER}
