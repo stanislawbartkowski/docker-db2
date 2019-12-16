@@ -1,4 +1,4 @@
-FROM centos as intermediate
+FROM centos:7 as intermediate
 
 MAINTAINER "sb" <stanislawbartkowski@gmail.com>
 
@@ -26,7 +26,7 @@ ARG INSTPATH=/opt/ibm/db2/V11.1
  RUN if [ "${FIXDIR}" != "" ] ; then /tmp/i/${FIXDIR}/installFixPack -b ${INSTPATH} -n; true; fi
  RUN rm -rf /tmp/i
 
-FROM centos 
+FROM centos:7
 # from intermediate image copy installation and db2 registry leaving out the installation image
   COPY --from=intermediate /opt /opt
   RUN mkdir -p  /var/db2
