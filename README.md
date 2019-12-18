@@ -71,7 +71,7 @@ DB2 AESE
 
 > docker build --build-arg INSTDIR=server_aese_c --build-arg PARS=-p\ SERVER -t db2 .<br>
 
-DB2 11.5
+DB2 11.5, "IBM DB2 Developer-C Edition"
 
 > docker build --build-arg INSTDIR=server_dec --build-arg INSTPATH=/opt/ibm/db2/V11.5 --build-arg PARS='-p SERVER -y' -t db2 .<br>
 
