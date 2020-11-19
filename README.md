@@ -127,8 +127,8 @@ Firstly unpack compressed file containing FixPack payload into DB2 installation 
 Then run docker build image command and define additional *FIXDIR* argument equal to root directory of FixPack files inside main install directory (here *server_t*)
 
 > docker build --build-arg INSTDIR=server_aese_c --build-arg PARS="-p SERVER" --build-arg FIXDIR=server_t -t db2 .<br>
-<br>
->  docker build --build-arg INSTDIR=server_dec --build-arg INSTPATH=/opt/ibm/db2/V11.5 --build-arg PARS='-p SERVER -y' --build-arg FIXDIR=universal -t db2 .<br>
+
+> docker build --build-arg INSTDIR=server_dec --build-arg INSTPATH=/opt/ibm/db2/V11.5 --build-arg PARS='-p SERVER -y' --build-arg FIXDIR=universal -t db2 .<br>
 <br>
 
 After main installation, the build process executes ${FIXDIR}/installFixPack command with appropriate parameters.
