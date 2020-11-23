@@ -147,6 +147,25 @@ The container should run as *--privileged*. The name of the container (here *db2
  > docker run --privileged -d -p 50000:50000 --name db2 db2
 
 The very first thing to do is to create a database, the image contains an empty DB2 instance. The container DB2 instance can be accessed remotely, using DB2 client software.
+
+## External volume for container
+
+Assuming external storage for DB2 container */disk/db2inst1*. It maps */home/db2inst1/db2inst1* into host node directory */disk/db2inst1*.
+
+> podman run -v /home/repos/db2inst1:/home/db2inst1/db2inst1 -d -p 50000:50000 --name db2 db2
+
+SELinux<br>
+
+> semanage fcontext -a -t container_file_t '/disk/db2inst1(/.*)?'  <br>
+> restorecon -R /disk/db2inst1
+
+Verify<br>
+
+> ls -lZd /disk/db2inst1<br>
+```
+drwxrwxrwx. 3 root root unconfined_u:object_r:container_file_t:s0 22 11-23 13:46 /disk/db2inst1
+```
+
 ## Remote access to DB2 instance
 > db2 catalog tcpip node DB2CONT remote localhost server 50000<br>
 ```
