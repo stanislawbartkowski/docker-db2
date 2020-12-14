@@ -2,6 +2,8 @@
 
 This project allows to Dockerize IBM DB2 database. The image will contain DB2 installation and a single instance ready to accept connections. Database(s) should be added manually.
 
+Look also: https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.db2u_openshift.doc/doc/t_install_db2CE_linux_img.html
+
 # Preparation and prerequisites
 
 ## Clone git project
